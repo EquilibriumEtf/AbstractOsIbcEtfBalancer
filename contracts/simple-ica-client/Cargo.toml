@@ -1,0 +1,51 @@
+[package]
+name = "simple-ica-client"
+version = "0.2.0"
+authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>"]
+edition = "2021"
+publish = false
+license = "Apache-2.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+codegen-units = 1
+panic = 'abort'
+incremental = false
+overflow-checks = true
+
+[features]
+# for quicker tests, cargo test --lib
+# for more explicit tests, cargo test --features=backtraces
+backtraces = ["cosmwasm-std/backtraces"]
+# use library feature to disable all instantiate/execute/query exports
+library = []
+
+[dependencies]
+cw2 = "0.14"
+simple-ica = { version = "0.2.0", path = "../../packages/simple-ica"}
+abstract-os = { path = "../../packages/abstract-os"}
+abstract-sdk = { path = "../../packages/abstract-sdk"}
+cosmwasm-std = { version = "1.1", features = ["iterator", "ibc3"] }
+cw-storage-plus = { version = "0.14.0" }
+cw-utils = { version = "0.14.0" }
+cw-asset = {version = "2.2.0"}
+schemars = "0.8.1"
+serde = { version = "1.0.103", default-features = false, features = ["derive"] }
+thiserror = { version = "1.0.23" }
+client-osmo-bindings = { package = "osmo-bindings", git = "https://github.com/OracleDAODAO/osmo-bindings-client"}
+osmosis-std = "0.12.0"
+cosmwasm-schema = { version = "1.1" }
+cw-controllers = { version ="0.14.0" }
+semver = "1"
+
+[dev-dependencies]
+cosmwasm-schema = { version = "1.0.0" }

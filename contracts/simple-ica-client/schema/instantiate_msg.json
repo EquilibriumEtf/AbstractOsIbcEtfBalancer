@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InstantiateMsg",
+  "description": "This needs no info. Owner of the contract is whoever signed the InstantiateMsg.",
+  "type": "object",
+  "required": [
+    "memory_address",
+    "os_id"
+  ],
+  "properties": {
+    "memory_address": {
+      "type": "string"
+    },
+    "os_id": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0.0
+    }
+  }
+}

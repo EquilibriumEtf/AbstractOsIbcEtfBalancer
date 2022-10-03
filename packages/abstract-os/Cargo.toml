@@ -1,0 +1,32 @@
+[package]
+name = "abstract-os"
+version = "0.1.0-rc.3"
+authors = ["CyberHoward <cyberhoward@users.noreply.github.com>"]
+edition = "2021"
+description = "Abstract contract interfaces and storage layouts"
+license = "GPL-2.0-or-later"
+readme = "README.md"
+repository = "https://github.com/Abstract-OS/contracts/tree/main/packages/abstract-os"
+
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+# for quicker tests, cargo test --lib
+# for more explicit tests, cargo test --features=backtraces
+backtraces = ["cosmwasm-std/backtraces"]
+
+[dependencies]
+cosmwasm-std = { version = "1.1", features = ["iterator"] }
+cosmwasm-schema = { version = "1.1" }
+schemars = "0.8.1"
+cw-controllers = { version = "0.14.0" }
+cw-storage-plus = { version = "0.14.0" }
+serde = { version = "1.0.103", default-features = false, features = ["derive"] }
+cw-asset = {version = "2.2.0"}
+cw2 = { version = "0.14.0" }
+cw20 = { version = "0.14.0" }
+cw20-base = { version = "0.14.0", features = ["library"] }
+client-osmo-bindings = { package = "osmo-bindings", git = "https://github.com/OracleDAODAO/osmo-bindings-client"}
+

@@ -1,0 +1,52 @@
+[package]
+name = "dex"
+version = "0.1.0-rc.3"
+authors = ["CyberHoward <cyberhoward@users.noreply.github.com>"]
+edition = "2021"
+
+exclude = [
+  # Those files are rust-optimizer artifacts. You might want to commit them for convenience but they should not be part of the source code publication.
+  "contract.wasm",
+  "hash.txt",
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+default = ["juno", "osmosis"]
+# for more explicit tests, cargo test --features=backtraces
+backtraces = ["cosmwasm-std/backtraces"]
+juno = ["dep:wasmswap", "dep:cw20_junoswap", "dep:terraswap"]
+terra = ["dep:terraswap"]
+osmosis= ["dep:simple-ica-client"]
+
+# Keep as is until TendermintStake updates.
+[dependencies]
+cosmwasm-std = "1.1"
+schemars = "0.8.1"
+serde = { version = "1.0.103", default-features = false, features = ["derive"] }
+thiserror = { version = "1.0.21" }
+abstract-os = { version = "0.1.0-rc.1", path = "../../../../packages/abstract-os" }
+abstract-sdk = { version = "0.1.0-rc.1", path = "../../../../packages/abstract-sdk" }
+abstract-api = { version = "0.1.0-rc.1", path = "../../../../packages/abstract-api", features = ["library"] }
+simple-ica = { version = "0.2.0", path = "../../../../packages/simple-ica" }
+cw-asset = {version = "2.2.0"}
+simple-ica-client = { path = "../../../simple-ica-client", optional = true,  features = ["library"]}
+
+# Juno dexes
+cw20_junoswap = {package = "cw20", version = "0.10.0", optional = true}
+wasmswap = { git = "https://github.com/Wasmswap/wasmswap-contracts", tag = "v1.0.0-beta", features = ["library"], optional = true}
+# swaprouter = { git = "https://github.com/osmosis-labs/swaprouter/tree/main/contracts/swaprouter", features = ["library"], optional = true}
+# terraswap_juno = {package = "terraswap", version = "2.8.0", optional = true}
+client-osmo-bindings = { package = "osmo-bindings", git = "https://github.com/OracleDAODAO/osmo-bindings-client"}
+
+# Terra dexes
+terraswap = {version = "2.8.0", optional = true}
+cw20 = "0.14.0"
+
+
+[dev-dependencies]
+cosmwasm-schema = { version = "1.0" }
